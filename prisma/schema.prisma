@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model customer {
-  id        String   @id
+  id        String   @id @default(cuid())
   tenantId  String
   shopifyId String?  @db.VarChar(255)
   email     String?
@@ -21,18 +21,18 @@ model customer {
 }
 
 model event {
-  id        String   @id
+  id        String   @id @default(cuid())
   tenantId  String
   type      String
   payload   Json
   createdAt DateTime @default(now())
   tenant    tenant   @relation(fields: [tenantId], references: [id], map: "Event_tenantId_fkey")
 
-  @@index([tenantId], map: "Event_tenantId_fkey")
+  @@index([tenantId], map: "Event_tenantId_idx")
 }
 
 model order {
-  id              String   @id
+  id              String   @id @default(cuid())
   tenantId        String
   shopifyId       String?  @db.VarChar(255)
   customerId      String?
@@ -47,7 +47,7 @@ model order {
 }
 
 model product {
-  id         String   @id
+  id         String   @id @default(cuid())
   tenantId   String
   shopifyId  String?  @db.VarChar(255)
   title      String
