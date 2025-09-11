@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model customer {
+  id        String   @id
+  tenantId  String
+  shopifyId String?  @db.VarChar(255)
+  email     String?
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  tenant    tenant   @relation(fields: [tenantId], references: [id], map: "Customer_tenantId_fkey")
+
+  @@unique([tenantId, shopifyId], map: "Customer_tenantId_shopifyId_key")
+}
+
+model event {
+  id        String   @id
+  tenantId  String
+  type      String
+  payload   Json
+  createdAt DateTime @default(now())
+  tenant    tenant   @relation(fields: [tenantId], references: [id], map: "Event_tenantId_fkey")
+
+  @@index([tenantId], map: "Event_tenantId_fkey")
+}
+
+model order {
+  id              String   @id
+  tenantId        String
+  shopifyId       String?  @db.VarChar(255)
+  customerId      String?
+  totalPriceCents Int?
+  currency        String?
+  status          String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime
+  tenant          tenant   @relation(fields: [tenantId], references: [id], map: "Order_tenantId_fkey")
+
+  @@unique([tenantId, shopifyId], map: "Order_tenantId_shopifyId_key")
+}
+
+model product {
+  id         String   @id
+  tenantId   String
+  shopifyId  String?  @db.VarChar(255)
+  title      String
+  sku        String?
+  priceCents Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+  tenant     tenant   @relation(fields: [tenantId], references: [id], map: "Product_tenantId_fkey")
+
+  @@unique([tenantId, shopifyId], map: "Product_tenantId_shopifyId_key")
+}
+
+model tenant {
+  id           String     @id @default(cuid())
+  name         String
+  shopifyShop  String     @unique(map: "Tenant_shopifyShop_key")
+  accessToken  String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  email        String?
+  passwordHash String?
+  customer     customer[]
+  event        event[]
+  order        order[]
+  product      product[]
+}

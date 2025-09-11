@@ -1,0 +1,25 @@
+# Node modules
+node_modules/
+
+# Prisma generated client
+.prisma/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build output (if you build anything later)
+dist/
+build/
+
+# VS Code settings (optional)
+.vscode/
