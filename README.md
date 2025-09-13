@@ -1,123 +1,122 @@
-# Xeno Backend – Multi-Tenant Shopify Data Ingestion & Insights Service
+# Multi-Tenant Shopify Data Ingestion & Insights Service
 
-This project is built as part of the **Xeno FDE Internship Assignment – 2025**.  
-It implements a **multi-tenant backend service** that connects with Shopify stores, ingests customer/order/product data, and provides insightful dashboards.
+This repository contains the backend service built for the Xeno FDE Internship Assignment – 2025.  
+It provides a multi-tenant integration with Shopify, allowing retailers to connect their stores, ingest customer/order/product data, and expose dashboard APIs for insights.  
+### Frontend website link:https://xeno-frontend-omega.vercel.app/
 
----
+## Features
 
-## 🚀 Features
-- **Multi-Tenant Authentication**
-  - Tenant signup & login with email/password
-  - JWT-based authentication
-- **Shopify App Integration**
-  - OAuth flow for store installation
-  - Syncs **customers, orders, products** via Shopify APIs
-  - (Bonus) Handles custom events through webhooks
-- **Data Ingestion**
-  - Background job (poller) to fetch new data
-  - Stores data in a PostgreSQL database via Prisma ORM
-- **Dashboard API**
-  - `/dashboard/summary` – business summary metrics
-  - `/dashboard/orders-by-date` – order trends
-  - `/dashboard/top-customers` – top spenders
-  - `/dashboard/new-customers-by-date` – acquisition trends
-  - `/dashboard/avg-order-value-by-date` – insights into order value
-- **Secure Multi-Tenant Middleware**
-  - Ensures tenant isolation via `x-tenant-id` header
+### Authentication & Multi-Tenancy
+- Tenant signup & login with email/password  
+- JWT-based authentication  
+- Middleware for tenant isolation using `x-tenant-id`  
 
----
+### Shopify App Integration
+- OAuth-based installation flow for Shopify stores  
+- Data sync for customers, orders, and products via Shopify Admin APIs  
+- Optional webhook support for real-time events  
 
-## 🛠️ Tech Stack
-- **Backend Framework**: Node.js + Express
-- **Database ORM**: Prisma
-- **Database**: PostgreSQL (hosted)
-- **Auth**: JWT + bcrypt
-- **Shopify Integration**: Shopify Admin APIs, Webhooks
-- **Deployment Ready**: Works with Render/Heroku/Vercel (serverless-friendly)
+### Data Ingestion
+- Background poller to fetch new data periodically  
+- Data persisted in PostgreSQL using Prisma ORM  
 
----
+### Dashboard API Endpoints
+- /dashboard/summary – Key business metrics  
+- /dashboard/orders-by-date – Order volume trends  
+- /dashboard/top-customers – Highest spending customers  
+- /dashboard/new-customers-by-date – Acquisition over time  
+- /dashboard/avg-order-value-by-date – Average order value trends  
 
-## 📂 Project Structure
+## Tech Stack
+
+- Backend Framework: Node.js + Express  
+- Database: PostgreSQL  
+- ORM: Prisma  
+- Authentication: JWT + bcrypt  
+- Shopify Integration: Shopify Admin APIs, Webhooks  
+- Deployment Ready: Render 
+
+## Project Structure
+
+```
 XENO_BACKEND
-├── prisma/ # Prisma schema & migrations
+├── prisma/           # Prisma schema & migrations
 ├── src/
-│ ├── controllers/ # Auth, Shopify, Dashboard controllers
-│ ├── jobs/ # Poller for background ingestion
-│ ├── middleware/ # Tenant middleware
-│ ├── routes/ # API routes
-│ ├── utils/ # Shopify client helper
-│ ├── app.js # Express app
-│ └── server.js # Entry point
-├── .env # Environment variables (not committed)
-├── .gitignore # Ignored files (node_modules, .env)
+│   ├── controllers/  # Auth, Shopify, Dashboard controllers
+│   ├── jobs/         # Background poller for ingestion
+│   ├── middleware/   # Tenant isolation middleware
+│   ├── routes/       # API routes
+│   ├── utils/        # Shopify API helper
+│   ├── app.js        # Express app setup
+│   └── server.js     # Entry point
+├── .env              # Environment variables (not committed)
+├── .gitignore        # Ignored files (node_modules, .env)
 ├── package.json
 └── README.md
+```
 
-yaml
-Copy code
+## Setup & Installation
 
----
+1. Clone the repository  
 
-## ⚙️ Setup & Installation
-
-1. Clone the repository
-   ```bash
    git clone https://github.com/<your-username>/xeno_backend.git
    cd xeno_backend
-Install dependencies
+ 
 
-bash
-Copy code
-npm install
-Create .env file in root with:
+2. Install dependencies  
 
-env
-Copy code
-DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<db>
-SHOPIFY_API_KEY=your_api_key
-SHOPIFY_API_SECRET=your_api_secret
-SHOPIFY_SCOPES=read_customers,read_orders,read_products
-APP_URL=https://your-app-url.com
-JWT_SECRET=your_secret
-Run Prisma migrations
+   npm install
 
-bash
-Copy code
-npx prisma migrate deploy
-Start the server
 
-bash
-Copy code
-npm start
-🔗 Shopify App Installation
-To install the app on a Shopify store, open:
+3. Configure environment variables  
+   Create a `.env` file in the root directory:  
 
-perl
-Copy code
-https://<APP_URL>/api/shopify/install?shop=<your-shop-name>.myshopify.com
-📊 Dashboard Endpoints
-Example calls (requires JWT + tenant ID header):
+   DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<db>  
+   SHOPIFY_API_KEY=your_api_key  
+   SHOPIFY_API_SECRET=your_api_secret  
+   SHOPIFY_SCOPES=read_customers,read_orders,read_products  
+   APP_URL=https://your-app-url.com  
+   JWT_SECRET=your_secret  
 
-GET /dashboard/summary
 
-GET /dashboard/orders-by-date
+4. Apply Prisma migrations  
 
-GET /dashboard/top-customers
+   npx prisma migrate deploy
 
-GET /dashboard/new-customers-by-date
 
-GET /dashboard/avg-order-value-by-date
+5. Start the server  
 
-✅ Status
- Shopify store setup with dummy data
+   npm start
 
- Backend service with multi-tenant ingestion
 
- Secure tenant authentication
+## Shopify App Installation
 
- Dashboard endpoints with insights
+To install the app on a Shopify store, open in your browser:  
+(but do not forget to permit your app on the store)
+```
+https://<APP_URL>/api/shopify/install?shop=<store-name>.myshopify.com
+```
 
- Deployment (in-progress)
+## API Endpoints
 
-👤 Author
-Built by Akil as part of the Xeno FDE Internship Assignment 2025.
+All endpoints require a JWT in the `Authorization` header and the `x-tenant-id` header.  
+
+- GET /dashboard/summary  
+- GET /dashboard/orders-by-date  
+- GET /dashboard/top-customers  
+- GET /dashboard/new-customers-by-date  
+- GET /dashboard/avg-order-value-by-date  
+
+## Current Status  
+
+- Shopify store setup with dummy data  
+- Backend service with multi-tenant ingestion  
+- Secure authentication & tenant isolation  
+- Dashboard APIs functional  
+- Deployment (in progress)  
+
+## Author  
+
+Built by Akil S  
+Vellore Institute of Technology, Chennai
+akil031204@gmail.com
