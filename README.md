@@ -1,7 +1,8 @@
-#Multi-Tenant Shopify Data Ingestion & Insights Service
+# Multi-Tenant Shopify Data Ingestion & Insights Service
 
 This repository contains the backend service built for the Xeno FDE Internship Assignment – 2025.  
 It provides a multi-tenant integration with Shopify, allowing retailers to connect their stores, ingest customer/order/product data, and expose dashboard APIs for insights.  
+### Frontend website link:https://xeno-frontend-omega.vercel.app/
 
 ## Features
 
