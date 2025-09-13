@@ -56,7 +56,58 @@ XENO_BACKEND
 ```
 ## Architecture Diagram:
 ![Architecture Diagram](./architecture_diagram.png)
+# Database Schema
+TENANT {
+        String id PK
+        String name
+        String shopifyShop UNIQUE
+        String accessToken
+        String email
+        String passwordHash
+        DateTime createdAt
+        DateTime updatedAt
+    }
 
+    CUSTOMER {
+        String id PK
+        String tenantId FK
+        String shopifyId
+        String email
+        String name
+        DateTime createdAt
+        DateTime updatedAt
+    }
+
+    PRODUCT {
+        String id PK
+        String tenantId FK
+        String shopifyId
+        String title
+        String sku
+        Int priceCents
+        DateTime createdAt
+        DateTime updatedAt
+    }
+
+    ORDER {
+        String id PK
+        String tenantId FK
+        String shopifyId
+        String customerId
+        Int totalPriceCents
+        String currency
+        String status
+        DateTime createdAt
+        DateTime updatedAt
+    }
+
+    EVENT {
+        String id PK
+        String tenantId FK
+        String type
+        Json payload
+        DateTime createdAt
+    }
 ## Setup & Installation
 
 1. Clone the repository  
