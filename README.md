@@ -89,6 +89,7 @@ flowchart TD
     Backend -->|Persist Entities| DB
     DB -->|Query Data| Backend
     Backend -->|Insights + Charts| A1
+
 ## Setup & Installation
 
 1. Clone the repository  
