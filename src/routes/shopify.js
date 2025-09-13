@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { installRedirect, oauthCallback } = require('../controllers/shopifyController');
-
+//routes for shopify app installation and oauth callback
 router.get('/install', installRedirect);
 router.get('/callback', oauthCallback);
 

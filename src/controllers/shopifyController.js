@@ -2,22 +2,22 @@ const axios = require("axios");
 const crypto = require("crypto");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-
+// Shopify app credentials from env is accessed here
 const API_KEY = process.env.SHOPIFY_API_KEY;
 const API_SECRET = process.env.SHOPIFY_API_SECRET;
 const SCOPES = process.env.SHOPIFY_SCOPES || "read_customers,read_orders,read_products";
 const APP_URL = process.env.APP_URL;
-
+//here in this function we redirect to shopify for installation
 module.exports.installRedirect = async (req, res) => {
   const { shop } = req.query;
-  if (!shop) return res.status(400).send("Missing shop param");
+  if (!shop) return res.status(400).send("Missing shop param");//if there is no shop param, return error
 
-  const state = crypto.randomBytes(16).toString("hex");
-  const redirectUri = `${APP_URL}/api/shopify/callback`;
+  const state = crypto.randomBytes(16).toString("hex");//generate random state for security
+  const redirectUri = `${APP_URL}/api/shopify/callback`;//redirect uri after installation
 
   const installUrl = `https://${shop}/admin/oauth/authorize?client_id=${API_KEY}&scope=${encodeURIComponent(
     SCOPES
-  )}&redirect_uri=${encodeURIComponent(redirectUri)}&state=${state}&grant_options[]=per-user`;
+  )}&redirect_uri=${encodeURIComponent(redirectUri)}&state=${state}&grant_options[]=per-user`;//construct installation url
 
   console.log(`[INSTALL] Redirecting to: ${installUrl}`);
   res.redirect(installUrl);
@@ -64,7 +64,7 @@ module.exports.oauthCallback = async (req, res) => {
 
     console.log("[CALLBACK] Tenant saved in DB:", tenant);
 
-    res.send("✅ App installed successfully! You can close this tab.");
+    res.send("App installed successfully! You can close this tab.");
   } catch (err) {
     console.error("[CALLBACK] OAuth error:", err.response?.data || err.message);
     res.status(500).send("OAuth failed");

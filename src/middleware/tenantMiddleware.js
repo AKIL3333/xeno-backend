@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-
+// Middleware file to identify tenant from x-tenant-id header
 module.exports = async (req, res, next) => {
   const tenantId = req.header('x-tenant-id');
   if (!tenantId) return res.status(400).json({ error: 'Missing x-tenant-id header' });

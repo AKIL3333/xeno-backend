@@ -27,18 +27,19 @@ app.use(session({
 
 
 // mount routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/tenants', require('./routes/tenants'));
-app.use('/api/shopify', require('./routes/shopify'));
-app.use('/api/webhooks', require('./routes/webhooks'));
-app.use('/api/ingest', require('./routes/ingest'));
-app.use('/api/dashboard', require('./routes/dashboard'));
-app.use('/api/shopify/data', require('./routes/shopifyDataRoutes'));
+//not all routes are necessary for the basic functionality but can be used for future extensions
+app.use('/api/auth', require('./routes/auth'));//use for jwt based authentication
+app.use('/api/tenants', require('./routes/tenants'));//use for tenant creation and listing
+app.use('/api/shopify', require('./routes/shopify'));//use for shopify oauth and app installation
+app.use('/api/webhooks', require('./routes/webhooks'));//use when webhooks are needed
+app.use('/api/ingest', require('./routes/ingest'));//use for manual data ingestion using a controller and access token
+app.use('/api/dashboard', require('./routes/dashboard'));//use for fetch dashboard to view the trends and insights
+app.use('/api/shopify/data', require('./routes/shopifyDataRoutes'));//use to fetch shopify data like customers, orders, products if needed
 
-// health
+// health of the app
 app.get('/health', (req, res) => res.json({ status: 'ok' }))
 
-// simple cron: demo polling
+//scheduliing the poller job to run using cron
 nodeCron.schedule('*/1 * * * *', async () => {
   try {
     console.log('[cron] running poller job');

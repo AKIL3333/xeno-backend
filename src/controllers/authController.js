@@ -55,7 +55,7 @@ module.exports.login = async (req, res) => {
     const ok = await bcrypt.compare(password, tenant.passwordHash);
     if (!ok) return res.status(401).json({ error: 'invalid credentials' });
 
-    // Generate JWT
+    // Generate JWT token for session 
     const token = jwt.sign({ tenantId: tenant.id, email }, JWT_SECRET, { expiresIn: '7d' });
 
     res.json({

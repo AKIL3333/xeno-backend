@@ -3,7 +3,7 @@ const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const shopifyClient = require('../utils/shopifyClient');
-
+//this file defines routes to fetch Shopify data like customers, orders, products if needed
 // Middleware: fetch tenant by query param
 async function getTenant(req, res, next) {
   const shop = req.query.shop;

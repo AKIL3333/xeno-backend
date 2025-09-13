@@ -4,7 +4,8 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 const router = express.Router();
-
+//can use this file to define webhooks for shopify and use only whenyou have an app installed in shopify store and not while testing because transfer is disabled
+//instead use polling
 // Verify HMAC
 function verifyShopifyWebhook(req, res, next) {
   try {
@@ -19,7 +20,7 @@ function verifyShopifyWebhook(req, res, next) {
     if (hash === hmacHeader) {
       return next();
     } else {
-      console.error("🚨 Invalid HMAC");
+      console.error("Invalid HMAC");
       return res.status(401).send("Unauthorized");
     }
   } catch (err) {
@@ -33,14 +34,14 @@ router.post("/shopify", verifyShopifyWebhook, async (req, res) => {
   const shop = req.get("X-Shopify-Shop-Domain");
   const payload = req.body;
 
-  console.log(`📩 Webhook received: ${topic} from ${shop}`);
+  console.log(`Webhook received: ${topic} from ${shop}`);
 
   try {
     if (topic.startsWith("customers/")) {
       await prisma.customer.upsert({
         where: {
           tenantId_shopifyId: {
-            tenantId: payload.tenant_id || 1, // TODO: map shop → tenant
+            tenantId: payload.tenant_id || 1, 
             shopifyId: payload.id.toString(),
           },
         },
@@ -107,12 +108,12 @@ router.post("/shopify", verifyShopifyWebhook, async (req, res) => {
         },
       });
     } else {
-      console.log("⚠️ Ignored topic:", topic);
+      console.log("Ignored topic:", topic);
     }
 
     res.status(200).send("OK");
   } catch (err) {
-    console.error("❌ Webhook save error:", err);
+    console.error("Webhook save error:", err);
     res.status(500).send("Error");
   }
 });
