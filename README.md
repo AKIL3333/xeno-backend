@@ -57,7 +57,7 @@ XENO_BACKEND
 ## Architecture Diagram:
 ![Architecture Diagram](./architecture_diagram.png)
 # Database Schema
-TENANT {
+    TENANT {
         String id PK
         String name
         String shopifyShop UNIQUE
