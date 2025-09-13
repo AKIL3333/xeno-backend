@@ -55,40 +55,7 @@ XENO_BACKEND
 └── README.md
 ```
 ## Architecture Diagram:
-1. Architecture Diagram
-flowchart TD
-    subgraph User["👤 User"]
-        A1[React Frontend<br>(Vercel)]
-    end
-
-    subgraph Backend["🖥️ Node.js Express Backend<br>(Render/Vercel Serverless)"]
-        B1[/Auth Routes/]
-        B2[/Shopify Install + Callback/]
-        B3[/Dashboard API/]
-        B4[/Poller Cron Job/]
-    end
-
-    subgraph Shopify["🛍️ Shopify Store"]
-        S1[(Customers)]
-        S2[(Products)]
-        S3[(Orders)]
-    end
-
-    subgraph DB["🗄️ PostgreSQL + Prisma ORM"]
-        D1[(Tenant)]
-        D2[(Customer)]
-        D3[(Product)]
-        D4[(Order)]
-        D5[(Event)]
-    end
-
-    %% Connections
-    A1 -->|REST API Calls| Backend
-    Backend -->|OAuth Install + Webhooks| Shopify
-    Shopify -->|Access Token + Data| Backend
-    Backend -->|Persist Entities| DB
-    DB -->|Query Data| Backend
-    Backend -->|Insights + Charts| A1
+![Architecture Diagram](./architecture.png)
 
 ## Setup & Installation
 
