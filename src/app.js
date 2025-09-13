@@ -39,7 +39,7 @@ app.use('/api/shopify/data', require('./routes/shopifyDataRoutes'));
 app.get('/health', (req, res) => res.json({ status: 'ok' }))
 
 // simple cron: demo polling
-nodeCron.schedule('*/15 * * * *', async () => {
+nodeCron.schedule('*/1 * * * *', async () => {
   try {
     console.log('[cron] running poller job');
     const poller = require('./jobs/poller');

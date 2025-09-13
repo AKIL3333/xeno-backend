@@ -61,7 +61,7 @@ module.exports.login = async (req, res) => {
     res.json({
       token,
       tenantId: tenant.id,
-      tenantName: tenant.name, // <-- return tenantName
+      tenantName: tenant.name, 
       email: tenant.email,
     });
   } catch (err) {
