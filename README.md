@@ -20,11 +20,11 @@ It provides a multi-tenant integration with Shopify, allowing retailers to conne
 - Data persisted in PostgreSQL using Prisma ORM  
 
 ### Dashboard API Endpoints
-- `/dashboard/summary` – Key business metrics  
-- `/dashboard/orders-by-date` – Order volume trends  
-- `/dashboard/top-customers` – Highest spending customers  
-- `/dashboard/new-customers-by-date` – Acquisition over time  
-- `/dashboard/avg-order-value-by-date` – Average order value trends  
+- /dashboard/summary – Key business metrics  
+- /dashboard/orders-by-date – Order volume trends  
+- /dashboard/top-customers – Highest spending customers  
+- /dashboard/new-customers-by-date – Acquisition over time  
+- /dashboard/avg-order-value-by-date – Average order value trends  
 
 ## Tech Stack
 
@@ -70,12 +70,12 @@ XENO_BACKEND
 3. Configure environment variables  
    Create a `.env` file in the root directory:  
 
-   DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<db>
-   SHOPIFY_API_KEY=your_api_key
-   SHOPIFY_API_SECRET=your_api_secret
-   SHOPIFY_SCOPES=read_customers,read_orders,read_products
-   APP_URL=https://your-app-url.com
-   JWT_SECRET=your_secret
+   DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<db>  
+   SHOPIFY_API_KEY=your_api_key  
+   SHOPIFY_API_SECRET=your_api_secret  
+   SHOPIFY_SCOPES=read_customers,read_orders,read_products  
+   APP_URL=https://your-app-url.com  
+   JWT_SECRET=your_secret  
 
 
 4. Apply Prisma migrations  
