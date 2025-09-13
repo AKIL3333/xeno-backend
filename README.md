@@ -54,7 +54,41 @@ XENO_BACKEND
 ├── package.json
 └── README.md
 ```
+## Architecture Diagram:
+1. Architecture Diagram
+flowchart TD
+    subgraph User["👤 User"]
+        A1[React Frontend<br>(Vercel)]
+    end
 
+    subgraph Backend["🖥️ Node.js Express Backend<br>(Render/Vercel Serverless)"]
+        B1[/Auth Routes/]
+        B2[/Shopify Install + Callback/]
+        B3[/Dashboard API/]
+        B4[/Poller Cron Job/]
+    end
+
+    subgraph Shopify["🛍️ Shopify Store"]
+        S1[(Customers)]
+        S2[(Products)]
+        S3[(Orders)]
+    end
+
+    subgraph DB["🗄️ PostgreSQL + Prisma ORM"]
+        D1[(Tenant)]
+        D2[(Customer)]
+        D3[(Product)]
+        D4[(Order)]
+        D5[(Event)]
+    end
+
+    %% Connections
+    A1 -->|REST API Calls| Backend
+    Backend -->|OAuth Install + Webhooks| Shopify
+    Shopify -->|Access Token + Data| Backend
+    Backend -->|Persist Entities| DB
+    DB -->|Query Data| Backend
+    Backend -->|Insights + Charts| A1
 ## Setup & Installation
 
 1. Clone the repository  
@@ -113,7 +147,12 @@ All endpoints require a JWT in the `Authorization` header and the `x-tenant-id` 
 - Backend service with multi-tenant ingestion  
 - Secure authentication & tenant isolation  
 - Dashboard APIs functional  
-- Deployment (in progress)  
+- Deployed
+- Used polling(Scheduler) to fetch and upsert Shopify data into my database.
+## Known Limitations and Assumptions.
+- Since I carried out the development without a fixed server (in local machine) it was not feasible for me to use real time webhooks from shopify,therefore I used a poller system which ingests data from shopify every single minute accurately.
+- Since this is a testing phase,I have just tested the shopify stores on my app which provides me a temporary access token(which works well for most cases) only,requiring to manually update the permanent admin api token in the database.
+- 
 
 ## Author  
 
