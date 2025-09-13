@@ -33,7 +33,7 @@ It provides a multi-tenant integration with Shopify, allowing retailers to conne
 - ORM: Prisma  
 - Authentication: JWT + bcrypt  
 - Shopify Integration: Shopify Admin APIs, Webhooks  
-- Deployment Ready: Works with Render / Heroku / Vercel  
+- Deployment Ready: Render 
 
 ## Project Structure
 
@@ -57,41 +57,41 @@ XENO_BACKEND
 ## Setup & Installation
 
 1. Clone the repository  
-   ```bash
+
    git clone https://github.com/<your-username>/xeno_backend.git
    cd xeno_backend
-   ```
+ 
 
 2. Install dependencies  
-   ```bash
+
    npm install
-   ```
+
 
 3. Configure environment variables  
    Create a `.env` file in the root directory:  
-   ```env
+
    DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<db>
    SHOPIFY_API_KEY=your_api_key
    SHOPIFY_API_SECRET=your_api_secret
    SHOPIFY_SCOPES=read_customers,read_orders,read_products
    APP_URL=https://your-app-url.com
    JWT_SECRET=your_secret
-   ```
+
 
 4. Apply Prisma migrations  
-   ```bash
+
    npx prisma migrate deploy
-   ```
+
 
 5. Start the server  
-   ```bash
+
    npm start
-   ```
+
 
 ## Shopify App Installation
 
 To install the app on a Shopify store, open in your browser:  
-
+(but do not forget to permit your app on the store)
 ```
 https://<APP_URL>/api/shopify/install?shop=<store-name>.myshopify.com
 ```
@@ -116,4 +116,6 @@ All endpoints require a JWT in the `Authorization` header and the `x-tenant-id` 
 
 ## Author  
 
-Built by Akil as part of the Xeno FDE Internship Assignment – 2025.  
+Built by Akil S  
+Vellore Institute of Technology, Chennai
+akil031204@gmail.com
