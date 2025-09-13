@@ -55,7 +55,7 @@ XENO_BACKEND
 └── README.md
 ```
 ## Architecture Diagram:
-![Architecture Diagram](./architecture.png)
+![Architecture Diagram](./architecture_diagram.png)
 
 ## Setup & Installation
 
