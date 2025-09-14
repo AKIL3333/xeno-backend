@@ -124,7 +124,7 @@ XENO_BACKEND
 3. Configure environment variables  
    Create a `.env` file in the root directory:  
 
-   DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<db> (use my db instance if necessary:"postgresql://akil:JnOBZoylvEucgl1YZyHp6HoIHswHisce@dpg-d31erimmcj7s738ceoj0-a.singapore-postgres.render.com/backend_db_vfnp") 
+   DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<db> (use my db instance if necessary:"postgresql://akil:JnOBZoylvEucgl1YZyHp6HoIHswHisce@dpg-d31erimmcj7s738ceoj0-a.singapore-postgres.render.com/backend_db_vfnp")   
    SHOPIFY_API_KEY=your_api_key  
    SHOPIFY_API_SECRET=your_api_secret  
    SHOPIFY_SCOPES=read_customers,read_orders,read_products  
