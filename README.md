@@ -170,8 +170,8 @@ All endpoints require a JWT in the `Authorization` header and the `x-tenant-id` 
 - Used polling(Scheduler) to fetch and upsert Shopify data into my database.
 ## Known Limitations and Assumptions.
 - Since I carried out the development without a fixed server (in local machine) it was not feasible for me to use real time webhooks from shopify,therefore I used a poller system which ingests data from shopify every single minute accurately.
-- Since this is a testing phase,I have just tested the shopify stores on my app which provides me a temporary access token(which works well for most cases) only,requiring to manually update the permanent admin api token in the database.
-- 
+- Since this is a testing phase,I have just tested the shopify stores on my custom app which provides me a temporary access token(which works well for most cases) only,requiring to manually update the permanent admin api token in the database.
+  
 
 ## Author  
 
